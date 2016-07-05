@@ -47,11 +47,19 @@ if ( ! class_exists('SLT_LockPages') ) {
 		* @var	array		$options	Stores the options for this plugin
 		*/
 		var $options = array();
+		/**
+		* @var	string	$admin_cap	The capability required to access the plugin settings page
+		* @since  0.3.1
+		*/
+		var $admin_cap = 'update_core';
 
 		/**
 		* PHP 5 Constructor
 		*/
 		function __construct() {
+
+			// Apply Filters
+			add_action( 'init', array( &$this, 'apply_filters' ) );
 
 			// Language Setup
 			$locale = get_locale();
@@ -68,6 +76,17 @@ if ( ! class_exists('SLT_LockPages') ) {
 
 		}
 
+		/**
+		* Apply filters
+		*
+		* @since	0.3.1
+		*/
+		function apply_filters() 
+		{
+			// Add a filter on admin cap
+			$this->admin_cap = apply_filters( 'sltlp_admin_cap', $this->admin_cap );
+		}
+		
 		/**
 		* Add hooks
 		*
@@ -642,7 +661,7 @@ if ( ! class_exists('SLT_LockPages') ) {
 		function admin_menu_link() {
 			// If you change this from add_options_page, MAKE SURE you change the filter_plugin_actions function (below) to
 			// reflect the page filename (ie - options-general.php) of the page your plugin is under!
-			add_options_page( 'Lock Pages', 'Lock Pages', 'update_core', basename( __FILE__ ), array( &$this, 'admin_options_page' ) );
+			add_options_page( 'Lock Pages', 'Lock Pages', $this->admin_cap, basename( __FILE__ ), array( &$this, 'admin_options_page' ) );
 			add_filter( 'plugin_action_links_' . plugin_basename(__FILE__), array(&$this, 'filter_plugin_actions'), 10, 2 );
 		}
 
