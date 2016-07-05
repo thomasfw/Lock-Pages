@@ -1,6 +1,8 @@
 
 jQuery( document ).ready( function($) {
 
+	var plugin_prefix = 'slt_lockpages_';
+
 	// Hide certain publishing controls
 	if ( $( 'body' ).hasClass( 'page-locked' ) ) {
 
@@ -26,4 +28,27 @@ jQuery( document ).ready( function($) {
 
 	}
 
+	// OPTIONAL CONTENT LOCK CHECKBOX
+	var $checkbox = $('#' + plugin_prefix + 'locked');
+	var $optional_container = $("#sltlp-optional-content-lock");
+	var $optional_checkbox = $('#' + plugin_prefix + 'content_lock');
+
+	$checkbox.on('change', function() 
+	{
+		toggleContentLocker();
+	});
+
+	function toggleContentLocker()
+	{
+	    if( $checkbox.is(":checked") ) 
+	    {
+	    	$optional_container.stop().slideDown(120);
+	    } 
+	    else
+	    {
+	    	$optional_checkbox.prop('checked', false);
+	    	$optional_container.slideUp(120);
+	    }	        
+	}
+	toggleContentLocker();
 });
