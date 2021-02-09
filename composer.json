@@ -1,5 +1,5 @@
 {
-	"name": "thomasfw/Lock-Pages",
+	"name": "thomasfw/lock-pages",
 	"type": "wordpress-plugin",
 	"description": "Lock Pages prevents specified pages (or all pages), posts, or custom post types from having their slug, parent, status or password edited, or from being deleted, by non-administrators.",
 	"keywords": [ "admin", "administration", "cms", "page", "pages", "custom post types", "permalink", "seo"],
